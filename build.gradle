@@ -1,0 +1,43 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.4.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.learn.apache.camel'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 10
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+
+    // This dependencies are required for projects with Java 9 or higher
+    compile group: 'com.sun.activation', name: 'javax.activation', version: '1.2.0'
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
+    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
+
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.apache.camel:camel-spring-boot-starter:2.22.0')
+
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.apache.camel:camel-test-spring:2.22.0')
+    testCompile('commons-io:commons-io:2.6')
+
+}
