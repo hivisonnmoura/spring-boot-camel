@@ -23,9 +23,10 @@ public class SimpleCamelRoute extends RouteBuilder {
                 .choice()
                     .when(header("env").isNotEqualTo("mock"))
                         /*
-                         *  I do not need any exchange that has been send from the 'from' method, I wanna construct my own
-                         *  exchange start from this particular note. Meaning that the route will read my file from input and
-                         *  create a Exchange object to be used in this route.
+                         *  [.pollEnrich]I do not need any exchange that has been send from the 'from' method,
+                         *  I wanna construct my own exchange start from this particular note.
+                         *  Meaning that the route will read my file from input and create a Exchange
+                         *  object to be used in this route.
                          */
                         .pollEnrich("{{fromRoute}}")
                         .log(LoggingLevel.INFO, "Exchange body: ${body}")
