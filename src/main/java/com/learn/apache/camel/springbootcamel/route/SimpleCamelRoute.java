@@ -1,10 +1,14 @@
 package com.learn.apache.camel.springbootcamel.route;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
+@Slf4j
 @Component
 public class SimpleCamelRoute extends RouteBuilder {
 
@@ -16,6 +20,7 @@ public class SimpleCamelRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        log.info("Start the Camel route at {}", LocalDateTime.now());
 
         from("{{startRoute}}")
                 .log(LoggingLevel.INFO, "Timer Invoked " + environment.getProperty("message"))
@@ -34,5 +39,7 @@ public class SimpleCamelRoute extends RouteBuilder {
                         .log(LoggingLevel.INFO,"Mock environment flow and the body is ${body}")
                 .end()
                 .to("{{toRoute1}}");
+
+        log.info("Ending the Camel route at {}. Time execute", LocalDateTime.now());
     }
 }

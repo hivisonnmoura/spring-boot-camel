@@ -10,6 +10,16 @@ buildscript {
     }
 }
 
+plugins {
+    id 'io.franzbecker.gradle-lombok' version '1.14'
+    id 'java'
+}
+
+lombok {
+    version = "1.18.2"
+    sha256 = "c5178b18caaa1a15e17b99ba5e4023d2de2ebc18b58cde0f5a04ca4b31c20e6d"
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -18,6 +28,7 @@ apply plugin: 'io.spring.dependency-management'
 group = 'com.learn.apache.camel'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 10
+
 
 repositories {
     mavenCentral()
@@ -34,7 +45,6 @@ dependencies {
 
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.apache.camel:camel-spring-boot-starter:2.22.0')
-
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.apache.camel:camel-test-spring:2.22.0')
