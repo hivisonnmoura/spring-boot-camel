@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class SuccessProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
-        exchange.getIn().setBody("Data Updated successfully !");
+        exchange.getIn().setBody("Data Updated Successfully !");
     }
 }

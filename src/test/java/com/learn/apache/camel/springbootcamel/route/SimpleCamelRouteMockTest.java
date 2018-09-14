@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class SimpleCamelRouteMockTest {
 
+
     @Autowired
     CamelContext context;
 
@@ -30,13 +31,15 @@ public class SimpleCamelRouteMockTest {
     Environment environment;
 
     @EndpointInject(uri = "{{toRoute1}}")
-    private MockEndpoint mockEndpoint;
+    private MockEndpoint route1;
+
+    @EndpointInject(uri = "{{toRoute3}}")
+    private MockEndpoint route3;
 
     @Autowired
-    protected  CamelContext createCamelContext() {
+    protected CamelContext createCamelContext() {
         return context;
     }
-
 
 
     @Autowired
@@ -46,11 +49,31 @@ public class SimpleCamelRouteMockTest {
     public void testMoveFileMock() throws IOException, InterruptedException {
         String message = new String(Files.readAllBytes(Paths.get("dataFile/fileAdd.txt")));
 
-        mockEndpoint.expectedMessageCount(1);
-        mockEndpoint.expectedBodiesReceived(message);
+        route1.expectedMessageCount(1);
+        route1.expectedBodiesReceived(message);
 
         producerTemplate.sendBodyAndHeader("{{startRoute}}", message, "env", environment.getActiveProfiles());
-        mockEndpoint.assertIsSatisfied();
+        route1.assertIsSatisfied();
+
+    }
+
+
+    @Test
+    public void testMoveFileMockandDB() throws InterruptedException, IOException {
+
+        String message = new String(Files.readAllBytes(Paths.get("dataFile/fileAdd.txt")));
+
+        String outMessage = "Data Updated Successfully !";
+
+        route1.expectedMessageCount(1);
+        route1.expectedBodiesReceived(message);
+
+        route3.expectedMessageCount(1);
+        route3.expectedBodiesReceived(outMessage);
+
+
+        producerTemplate.sendBodyAndHeader("{{startRoute}}", message, "env", environment.getActiveProfiles());
+        route3.assertIsSatisfied();
 
     }
 }

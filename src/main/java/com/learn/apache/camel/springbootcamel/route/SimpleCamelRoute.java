@@ -62,8 +62,8 @@ public class SimpleCamelRoute extends RouteBuilder {
                 .process(buildSQLProcessor)
                 .to("{{toRoute2}}")
                 .end()
-        .process(successProcessor)
-        .to("{{toRoute3}}");
+                .process(successProcessor)
+                .to("{{toRoute3}}");
 
         log.info("Ending the Camel route at {}. Time execute", LocalDateTime.now());
     }

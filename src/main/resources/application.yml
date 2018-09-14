@@ -13,10 +13,18 @@ server:
 ---
 spring:
   profiles: mock
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
 
 startRoute: direct:input
-fromRoute: file:data/input?delete=true&readLock=none
+fromRoute : file:data/input?delete=true&readLock=none
 toRoute1: mock:output
+toRoute2: mock:output1
+toRoute3: mock:output2
+
 
 message: MOCK enviroment
 

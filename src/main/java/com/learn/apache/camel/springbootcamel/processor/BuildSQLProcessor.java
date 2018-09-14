@@ -42,7 +42,7 @@ public class BuildSQLProcessor implements Processor {
 
     private String createQueryInsertItems(Item item) {
         StringBuilder query = new StringBuilder();
-        query.append("INSERT INTO ITEMS (SKU, ITEM_DESCRIPTION, PRICE) VALUES ('");
+        query.append("INSERT INTO "+ITEMS+" (SKU, ITEM_DESCRIPTION, PRICE) VALUES ('");
         query.append(item.getSku()+"','"+item.getItemDescriptions()+"','"+item.getPrice()+"')");
 
         return query.toString();
@@ -50,10 +50,16 @@ public class BuildSQLProcessor implements Processor {
     }
 
     private String createQueryUpdateItems(Item item) {
-        return StringUtils.EMPTY;
+        StringBuilder query = new StringBuilder();
+        query.append(UPDATE+" "+ITEMS+" "+"SET PRICE = ");
+        query.append(item.getPrice()+ "where SKU = '"+item.getSku()+"'");
+
+        return query.toString();
     }
     private String createQueryDeleteItems(Item item) {
-        return StringUtils.EMPTY;
+        StringBuilder query = new StringBuilder();
+        query.append(DELETE+" FROM "+ ITEMS + " where SKU = '"+item.getSku()+"'");
+        return query.toString();
     }
 
 
