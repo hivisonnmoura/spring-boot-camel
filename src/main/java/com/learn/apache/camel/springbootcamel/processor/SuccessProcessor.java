@@ -1,4 +1,13 @@
 package com.learn.apache.camel.springbootcamel.processor;
 
-public class SuccessProcessor {
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.springframework.stereotype.Component;
+
+@Component
+public class SuccessProcessor implements Processor {
+    @Override
+    public void process(Exchange exchange) throws Exception {
+        exchange.getIn().setBody("Data Updated successfully !");
+    }
 }

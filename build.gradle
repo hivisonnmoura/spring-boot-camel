@@ -43,11 +43,20 @@ dependencies {
     compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
     compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
 
+    compile group: 'org.apache.camel', name: 'camel-spring-boot-starter', version: '2.22.1'
+    compile group: 'org.apache.camel', name: 'camel-bindy', version: '2.22.1'
+    compile group: 'org.apache.camel', name: 'camel-csv', version: '2.22.1'
+    compile group: 'org.apache.camel', name: 'camel-jdbc', version: '2.22.1'
+
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8'
+
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.apache.camel:camel-spring-boot-starter:2.22.0')
+
+    compile group: 'org.postgresql', name: 'postgresql', version:'42.2.5'
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('org.apache.camel:camel-test-spring:2.22.0')
+    testCompile group: 'org.apache.camel', name: 'camel-test-spring', version: '2.22.1'
     testCompile('commons-io:commons-io:2.6')
 
 }

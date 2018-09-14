@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @ActiveProfiles("dev")
@@ -50,5 +51,23 @@ public class SimpleCamelRouteTest {
 
         File outFile = new File("data/output/"+fileName);
         assertTrue(outFile.exists());
+    }
+
+    @Test
+    public void testMoveFile_ADD() throws IOException, InterruptedException {
+        String message = new String(Files.readAllBytes(Paths.get("dataFile/fileAdd.txt")));
+
+        String fileName = "fileTest.txt";
+        producerTemplate.sendBodyAndHeader("{{fromRoute}}",
+                message, Exchange.FILE_NAME, fileName);
+
+        Thread.sleep(3000);
+
+        File outFile = new File("data/output/"+fileName);
+        assertTrue(outFile.exists());
+
+        String outputMessage = "Data Updated successfully !";
+        String output = new String(Files.readAllBytes(Paths.get("data/output/Success.txt")));
+        assertEquals(outputMessage ,output);
     }
 }
