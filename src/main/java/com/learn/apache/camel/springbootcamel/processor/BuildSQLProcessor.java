@@ -1,11 +1,13 @@
 package com.learn.apache.camel.springbootcamel.processor;
 
 import com.learn.apache.camel.springbootcamel.domain.Item;
+import com.learn.apache.camel.springbootcamel.exception.DataException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import static com.learn.apache.camel.springbootcamel.domain.constants.ApplicationConstants.*;
 
@@ -17,6 +19,9 @@ public class BuildSQLProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
         Item item = exchange.getIn().getBody(Item.class);
         String query = StringUtils.EMPTY;
+
+        if(ObjectUtils.isEmpty(item.getSku()))
+            throw new DataException("Sku is null for "+ item.getItemDescriptions());
 
         log.info("Item in Processor is : {}", item);
 

@@ -7,3 +7,6 @@ CREATE_TS TIMESTAMPTZ NULL DEFAULT current_timestamp
 );
 
 select * from items;
+
+
+commit ;

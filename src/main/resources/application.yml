@@ -20,7 +20,7 @@ spring:
     password: postgres
 
 startRoute: direct:input
-fromRoute : file:data/input?delete=true&readLock=none
+fromRoute : file:data/input?delete=true&readLock=none&moveFailed=error
 toRoute1: mock:output
 toRoute2: mock:output1
 toRoute3: mock:output2
@@ -37,7 +37,7 @@ spring:
     username: postgres
     password: postgres
 startRoute: timer:hello?period=10s
-fromRoute: file:data/input?delete=true&readLock=none
+fromRoute: file:data/input?delete=true&readLock=none&moveFailed=error
 toRoute1: file:data/output
 toRoute2: jdbc:dataSourceCamel
 toRoute3: file:data/output?fileName=Success.txt
@@ -53,7 +53,7 @@ spring:
     username: postgres
     password: postgres
 startRoute: timer:hello?period=10s
-fromRoute: file:data/input?delete=true&readLock=none
+fromRoute: file:data/input?delete=true&readLock=none&moveFailed=error
 toRoute1: file:data/output
 toRoute2: jdbc:dataSourceCamel
 toRoute3: file:data/output?fileName=Success.txt
@@ -70,7 +70,7 @@ spring:
     username: postgres
     password: postgres
 startRoute: timer:hello?period=10s
-fromRoute: file:data/input?delete=true&readLock=none
+fromRoute: file:data/input?delete=true&readLock=none&moveFailed=error
 toRoute1: file:data/output
 toRoute2: jdbc:dataSourceCamel
 toRoute3: file:data/output?fileName=Success.txt

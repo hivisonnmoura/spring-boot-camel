@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @ActiveProfiles("dev")
@@ -35,6 +36,7 @@ public class SimpleCamelRouteTest {
     public static void startCleanUp() throws IOException {
         FileUtils.cleanDirectory(new File("data/input"));
         FileUtils.deleteDirectory(new File("data/output"));
+        FileUtils.deleteDirectory(new File("data/input/error"));
     }
 
     @Test
@@ -106,4 +108,22 @@ public class SimpleCamelRouteTest {
         String output = new String(Files.readAllBytes(Paths.get("data/output/Success.txt")));
         assertEquals(outputMessage ,output);
     }
+
+
+    @Test
+    public void testMoveFile_ADD_Exception() throws IOException, InterruptedException {
+        String message = new String(Files.readAllBytes(Paths.get("dataFile/fileAddException.txt")));
+
+        String fileName = "fileAddTest.txt";
+        producerTemplate.sendBodyAndHeader("{{fromRoute}}",
+                message, Exchange.FILE_NAME, fileName);
+
+        Thread.sleep(3000);
+
+        File outFile = new File("data/output/"+fileName);
+        assertTrue(outFile.exists());
+        File errorDirectory = new File("data/input/error");
+        assertFalse(errorDirectory.exists());
+    }
+
 }
