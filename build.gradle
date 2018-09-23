@@ -51,12 +51,13 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8'
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
-    compile('org.springframework.boot:spring-boot-starter-web')
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
 
     compile group: 'org.postgresql', name: 'postgresql', version:'42.2.5'
 
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile group: 'org.springframework.boot', name:'spring-boot-starter-test'
     testCompile group: 'org.apache.camel', name: 'camel-test-spring', version: '2.22.1'
-    testCompile('commons-io:commons-io:2.6')
+    testCompile group: 'commons-io', name:'commons-io', version:'2.6'
 
 }

@@ -4,6 +4,7 @@ import com.learn.apache.camel.springbootcamel.domain.Item;
 import com.learn.apache.camel.springbootcamel.exception.DataException;
 import com.learn.apache.camel.springbootcamel.processor.BuildSQLProcessor;
 import com.learn.apache.camel.springbootcamel.processor.SuccessProcessor;
+import com.learn.apache.camel.springbootcamel.processor.alert.MailProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
@@ -25,12 +26,14 @@ public class SimpleCamelRoute extends RouteBuilder {
     private final DataSource dataSourceCamel;
     private final BuildSQLProcessor buildSQLProcessor;
     private final SuccessProcessor successProcessor;
+    private final MailProcessor mailProcessor;
 
-    public SimpleCamelRoute(Environment environment, @Qualifier("dataSourceCamel") DataSource dataSourceCamel, BuildSQLProcessor buildSQLProcessor, SuccessProcessor successProcessor) {
+    public SimpleCamelRoute(Environment environment, @Qualifier("dataSourceCamel") DataSource dataSourceCamel, BuildSQLProcessor buildSQLProcessor, SuccessProcessor successProcessor, MailProcessor mailProcessor) {
         this.environment = environment;
         this.dataSourceCamel = dataSourceCamel;
         this.buildSQLProcessor = buildSQLProcessor;
         this.successProcessor = successProcessor;
+        this.mailProcessor = mailProcessor;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class SimpleCamelRoute extends RouteBuilder {
         onException(PSQLException.class).log(LoggingLevel.ERROR, "PSQLException in the route &{body}")
             .maximumRedeliveries(3).redeliveryDelay(300).backOffMultiplier(2).retryAttemptedLogLevel(LoggingLevel.ERROR);
 
-        onException(DataException.class).log(LoggingLevel.ERROR, "Exception in th route ${body}")
+        onException(DataException.class).log(LoggingLevel.ERROR, "Exception in th route ${body}").process(mailProcessor)
                 .maximumRedeliveries(3).redeliveryDelay(300).backOffMultiplier(2).retryAttemptedLogLevel(LoggingLevel.ERROR);
 
         from("{{startRoute}}")
