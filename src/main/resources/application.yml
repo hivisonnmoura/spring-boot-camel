@@ -7,9 +7,15 @@ spring:
 camel:
   springboot:
     shutdown-timeout: 2
+    health.indicator.enabled: true
+
+management:
+  security:
+    enabled: false
 
 server:
   port: 8088
+
 ---
 spring:
   profiles: mock
