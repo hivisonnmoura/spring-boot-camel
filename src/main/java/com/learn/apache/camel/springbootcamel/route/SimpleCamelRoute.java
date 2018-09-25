@@ -51,7 +51,7 @@ public class SimpleCamelRoute extends RouteBuilder {
         onException(DataException.class).log(LoggingLevel.ERROR, "Exception in th route ${body}").process(mailProcessor)
                 .maximumRedeliveries(3).redeliveryDelay(300).backOffMultiplier(2).retryAttemptedLogLevel(LoggingLevel.ERROR);
 
-        from("{{startRoute}}")
+        from("{{startRoute}}").routeId("mainRoute")
                 .log(LoggingLevel.INFO, "Timer Invoked " + environment.getProperty("message"))
 
 
