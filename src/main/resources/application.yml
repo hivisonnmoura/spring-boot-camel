@@ -1,15 +1,24 @@
 spring:
   profiles:
     active: dev
-  output:
-    ansi:
-      enabled: always
 camel:
   springboot:
-    shutdown-timeout: 2
+    shutdownTimeout: 2
+    health.indicator.enabled: true
+
+management:
+  security:
+    enabled: false
+  endpoint:
+    health:
+      show-details: always
+
+
+
 
 server:
   port: 8088
+
 ---
 spring:
   profiles: mock
@@ -24,6 +33,7 @@ fromRoute : file:data/input?delete=true&readLock=none&moveFailed=error
 toRoute1: mock:output
 toRoute2: mock:output1
 toRoute3: mock:output2
+healthRoute: direct:health
 
 
 message: MOCK enviroment
@@ -48,11 +58,14 @@ mailTo: your@mail.com
 mailFrom: your@mail.com
 
 
+
 startRoute: timer:hello?period=10s
 fromRoute: file:data/input?delete=true&readLock=none&moveFailed=error
 toRoute1: file:data/output
 toRoute2: jdbc:dataSourceCamel
 toRoute3: file:data/output?fileName=Success.txt
+healthRoute: timer:healthRoute?period=10s
+
 message: DEV enviroment
 
 ---
@@ -80,6 +93,8 @@ fromRoute: file:data/input?delete=true&readLock=none&moveFailed=error
 toRoute1: file:data/output
 toRoute2: jdbc:dataSourceCamel
 toRoute3: file:data/output?fileName=Success.txt
+healthRoute: timer:healthRoute?period=10s
+
 message: STAGE enviroment
 
 ---
@@ -103,10 +118,13 @@ mailTo: your@mail.com
 mailFrom: your@mail.com
 
 
+
 startRoute: timer:hello?period=10s
 fromRoute: file:data/input?delete=true&readLock=none&moveFailed=error
 toRoute1: file:data/output
 toRoute2: jdbc:dataSourceCamel
 toRoute3: file:data/output?fileName=Success.txt
+healthRoute: timer:healthRoute?period=10s
+
 message: PROD enviroment
 ---
