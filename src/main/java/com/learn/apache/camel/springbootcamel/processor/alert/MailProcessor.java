@@ -29,7 +29,7 @@ public class MailProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
 
         Exception e = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
-        log.info("Exceotion Caught in mail processor : {}", e.getMessage());
+        log.info("Exception Caught in mail processor : {}", e.getMessage());
 
         String messageBody  = StringUtils.join("Exception happened in the camel route : ", e.getMessage());
 
