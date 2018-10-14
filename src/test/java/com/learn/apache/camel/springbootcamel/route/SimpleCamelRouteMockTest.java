@@ -64,7 +64,7 @@ public class SimpleCamelRouteMockTest {
 
 
     @Test
-    public void testMoveFileMockandDB() throws InterruptedException, IOException {
+    public void testMoveFileMockAndDB() throws InterruptedException, IOException {
 
         String message = new String(Files.readAllBytes(Paths.get("dataFile/fileAdd.txt")));
 

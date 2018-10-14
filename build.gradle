@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.4.RELEASE'
+        springBootVersion = '2.0.5.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -17,7 +17,7 @@ plugins {
 
 lombok {
     version = "1.18.2"
-    sha256 = "c5178b18caaa1a15e17b99ba5e4023d2de2ebc18b58cde0f5a04ca4b31c20e6d"
+    sha256 = "f13db210efa2092a58bb7befce58ffa502e5fefc5e1099f45007074008756bc0"
 }
 
 apply plugin: 'java'
@@ -55,7 +55,6 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
 
     compile group: 'org.postgresql', name: 'postgresql', version:'42.2.5'
 
